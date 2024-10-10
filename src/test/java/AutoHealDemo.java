@@ -23,61 +23,32 @@ public class AutoHealDemo {
 
 	@BeforeMethod
 	public void setup(Method m, ITestContext ctx) throws MalformedURLException, Exception {
-		String username = "";
-		String authkey = "";
+		String username = "{LT_UserName}";
+		String authkey = "{LT_Access_Key}";
 		String hub = "@hub.lambdatest.com/wd/hub";
-
-		System.getenv("LT_BUILD_NAME");
 		DesiredCapabilities caps = new DesiredCapabilities();
 
 		ChromeOptions browserOptions = new ChromeOptions();
-		// browserOptions.setCapability("platformName", "Windows 11");
+		browserOptions.setCapability("platformName", "Windows 11");
 		browserOptions.setCapability("browserVersion", "124");
 
 		HashMap<String, Object> ltOptions = new HashMap<String, Object>();
 		ltOptions.put("username", username);
 		ltOptions.put("driver_version", "127.0");
 		ltOptions.put("accessKey", authkey);
-		ltOptions.put("build", "AutoHeal_TestIntelligence3");
+		ltOptions.put("build", "AutoHeal Demo");
 		ltOptions.put("platformName", "Windows 11");
 		ltOptions.put("selenium_version", "4.0.0");
-
 		ltOptions.put("w3c", true);
-
-		ltOptions.put("accessibility", true);
-		ltOptions.put("seCdp", true);
-		ltOptions.put("accessibility.wcagVersion", "wcag22aa");
 		ltOptions.put("autoHeal", true);
-//		ltOptions.put("network", true);
-//		ltOptions.put("network.har", true);
-//		ltOptions.put("network.full.har", true);
-		// ltOptions.put("tunnel", true);
-		// ltOptions.put("tunnelName", "MavenSingle");
-		// ltOptions.put("smartUI.project", "SmarttUIProject-21-08-2024");
-//		ltOptions.put("smartUI.build", "Sample-2");
-//		ltOptions.put("smartUI.baseline", true);
-
 		browserOptions.setCapability("lt:options", ltOptions);
 
 		caps.setCapability(ChromeOptions.CAPABILITY, browserOptions);
-
-		// create tunnel instance
-//		t = new Tunnel();
-//		HashMap<String, String> options1 = new HashMap<String, String>();
-//		options1.put("username", username);
-//		options1.put("accessKey", authkey);
-		// options1.put("tunnelName", "MavenSingle");
-
-//        String[] Tags = new String[] { "Feature", "Falcon", "Severe" };
-//        caps.setCapability("tags", Tags);
-
-		// start tunnel
 
 		driver = new RemoteWebDriver(new URL(
 				"https://{LT_Username}:{LT_Access_Key}@hub.lambdatest.com/wd/hub"),
 				caps);
 
-		// t.start(options1);
 	}
 
 	@Test
@@ -105,9 +76,6 @@ public class AutoHealDemo {
 		
 		driver.findElement(By.xpath("//*[text()='Submit']")).click();
 
-		// ((JavascriptExecutor) driver).executeScript("smartui.takeScreenshot=pic1");
-		// // Lambda SmartUI
-
 		Thread.sleep(3000);
 
 		System.out.println("Test Finished");
@@ -119,7 +87,4 @@ public class AutoHealDemo {
 		driver.quit();
 		// t.stop();
 	}
-
-	// ltOptions.put("project", "AutoHeal_TestIntelligence_LambdaTest");
-	// ltOptions.put("selenium_version", "3.141.0");
 }
